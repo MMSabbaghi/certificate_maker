@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ساخت گواهی</title>
+  <link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="libs/bootstrap/">
+  <link rel="stylesheet" href="libs/alertify/alertify.rtl.min.css">
+  <link rel="stylesheet" href="libs/alertify/default.rtl.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <div class="header flex-column flex-sm-row">
+      <div class="d-flex position-relative">
+        <h4 class="m-0 rounded-3 ps-4"> ساخت گواهی&nbsp; </h4>
+        <p id="list_number" class="position-absolute top-50 start-0 translate-middle badge rounded-pill bg-success"></p>
+      </div>
+      <div class="d-flex mt-3 mt-sm-0 gap-1">
+        <div data-bs-toggle="tooltip" title="تنظیمات">
+          <button class="btn" id="settings_btn" data-bs-toggle="modal" data-bs-target="#settings_form">
+            <img src="icons/gear-wide.svg" alt="gear-wide">
+          </button>
+        </div>
+        <button class="btn" data-bs-toggle="tooltip" title="ساخت گواهی برای همه" id="zip_btn">
+          <img src="icons/file-earmark-zip.svg" alt="zip">
+        </button>
+        <div data-bs-toggle="tooltip" title="افزودن شرکت کننده جدید">
+          <button class="btn" data-bs-toggle="modal" data-bs-target="#form">
+            <img src="icons/plus-circle-fill.svg" alt="plus">
+          </button>
+        </div>
+        <div class="dropdown">
+          <button class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="icons/list.svg" alt="menu">
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end border-primary ps-2" aria-labelledby="dropdownMenuButton1">
+            <button class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="حذف همه" id="remove_all_btn">
+              <img src="icons/x-octagon-fill.svg" alt="remove_all">
+            </button>
+            <button class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="گرفتن خروجی از داده ها"
+              id="export_btn">
+              <img src="icons/box-arrow-up.svg" alt="arrow-up">
+            </button>
+            <form class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="وارد کردن داده"
+              style="cursor: pointer;">
+              <label style="cursor: pointer;" for="import_input">
+                <img src="icons/box-arrow-in-down.svg" alt="arrow-in">
+              </label>
+              <input type="file" id="import_input" accept=".json" class="d-none">
+            </form>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- settings Modal -->
+    <form class="modal fade" id="settings_form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> تنظیمات</h5>
+            <button type="button" style="margin-left:0 ;" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-2">
+              <label for="ctf_img_input" class="form-label mb-1">آپلود قالب جدید </label>
+              <input class="form-control" type="file" id="ctf_img_input" accept="image/jpeg, image/png ">
+            </div>
+            <img class="img-fluid" id="current_ctf_img"></img>
+            <a href="images/certificate_template.psd">دانلود قالب با فرمت .psd</a>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="save-settigs" class="btn btn-primary w-100">ذخیره</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- form Modal -->
+    <form class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">افزودن شرکت کننده</h5>
+            <button type="button" style="margin-left:0 ;" class="btn-close" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label class="my-1">نام کامل</label>
+            <input required type="text" class="form-control mb-1" placeholder="نام و نام خانوادگی" name="full_name">
+            <label class="my-1">کدملی</label>
+            <input type="number" class="form-control" minlength="10" maxlength="10" placeholder="کدملی" name="n_code">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary w-100">افزودن</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="all_data">
+      <div id="data_list">
+      </div>
+    </div>
+  </div>
+
+  <div id="loader" style="z-index: 1100;"
+    class="position-fixed w-100 h-100 d-flex align-items-center justify-content-center">
+    <div class="back_drop"></div>
+    <div class="spinner-border position-absolute"
+      style="width: 6rem; height: 6rem; border-width: 9px; animation-delay: 0.2s;"></div>
+    <div class="spinner-border position-absolute"
+      style="width: 4rem; height: 4rem; border-width: 8px; animation-delay: 0.1s;"></div>
+    <div class="spinner-border position-absolute" style="width: 2rem; height: 2rem; border-width: 7px; "></div>
+  </div>
+  <!-- <div class="position-absolute top-50 start-0 translate-middle" style="padding: 1px;">
+      <span style="cursor: pointer;" onClick="delete_data(this)">&#10060;</span>
+    </div> -->
+
+</body>
+<script src="libs/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="libs/alertify/alertify.min.js"></script>
+<script src="libs/jspdf.umd.min.js"></script>
+<script src="libs/jszip.min.js"></script>
+<script src="libs/lz-string.min.js"></script>
+<script src="utils.js"></script>
+<script src="main.js"></script>
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+
+</html>
