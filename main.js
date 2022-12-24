@@ -87,21 +87,21 @@ const delete_data = (e) => {
 };
 
 const load_certificate_image = async () => {
-  let img = "";
+  let img = null;
+  let img_format = "jpg";
   if (settings.ctf_image) {
-    const decompressed_img = decompress_str(settings.ctf_image);
-    img = await base64_to_image(decompressed_img);
+    const decompressed = decompress_str(settings.ctf_image);
+    img = await base64_to_image(decompressed);
+    img_format = get_base64_image_format(decompressed);
   } else {
-    img = await get_img_from_url("./images/Certif.jpg");
+    img = await get_img_from_url("images/Certif.jpg");
   }
-  return img;
+  return { img, img_format };
 };
 
 const create_certificate_doc = async () => {
   let doc = create_pdf_doc();
-  const img = await load_certificate_image();
-  const decompressed_img = decompress_str(settings.ctf_image);
-  const img_format = get_base64_image_format(decompressed_img);
+  const { img, img_format } = await load_certificate_image();
   doc.addImage(img, img_format, 0, 0, 297, 210);
   return doc;
 };
@@ -146,7 +146,7 @@ const zip_all_certificates = async () => {
 };
 
 const load_settings = async () => {
-  const img = await load_certificate_image();
+  const { img } = await load_certificate_image();
   current_ctf_img.src = img.src;
 };
 
