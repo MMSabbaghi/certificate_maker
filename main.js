@@ -88,7 +88,7 @@ const delete_data = (e) => {
 
 const load_certificate_image = async () => {
   let img = null;
-  let img_format = "jpg";
+  let img_format = "jpeg";
   if (settings.ctf_image) {
     const decompressed = decompress_str(settings.ctf_image);
     img = await base64_to_image(decompressed);
