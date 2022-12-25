@@ -94,7 +94,7 @@ const load_certificate_image = async () => {
     img = await base64_to_image(decompressed);
     img_format = get_base64_image_format(decompressed);
   } else {
-    img = await get_img_from_url("images/Certif.jpg");
+    img = await get_img_from_url("images/certif.jpg");
   }
   return { img, img_format };
 };
