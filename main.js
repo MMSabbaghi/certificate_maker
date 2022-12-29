@@ -1,5 +1,5 @@
 const ALL_DATA_KEY = "ALL_USERS";
-const SETTINGS_KEY = "SETTINGS";
+const SETTINGS_KEY = "CTF_SETTINGS";
 const DEFAULT_SETTINGS = {
   ctf_image: null,
 };
