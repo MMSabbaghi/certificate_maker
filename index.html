@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ساخت گواهی</title>
+  <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="libs/bootstrap/">
   <link rel="stylesheet" href="libs/alertify/alertify.rtl.min.css">
@@ -136,6 +137,17 @@
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
+</script>
+<script>
+  navigator.serviceWorker?.register('/certificate_maker/sw.js', { scope: '/certificate_maker/' })
+      .then(function (reg) {
+          // registration worked
+          console.log('Registration succeeded. Scope is ' + reg.scope);
+      })
+      .catch(function (error) {
+          // registration failed
+          console.log('Registration failed with ' + error);
+      });
 </script>
 
 </html>

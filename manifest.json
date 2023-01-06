@@ -1,0 +1,30 @@
+{
+    "theme_color": "#2e82bb",
+    "background_color": "#2e82bb",
+    "display": "standalone",
+    "start_url": "https://mmsabbaghi.github.io/certificate_maker/",
+    "name": "گواهی ساز",
+    "short_name": "ساخت گواهی به صورت خودکار",
+    "icons": [
+        {
+            "src": "./icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./icons/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "./icons/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "./icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
